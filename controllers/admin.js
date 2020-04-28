@@ -3,7 +3,7 @@ const Task = require('../models/task');
 exports.getAddTask = (req, res, next) => {
   res.render('admin/create-task', {
     path: '/admin/create-task',
-    editing: false
+    editing: false,
   });
 };
 
@@ -11,30 +11,36 @@ exports.postAddTask = (req, res, next) => {
   const title = req.body.title;
   const description = req.body.description;
   Task.create({
-    title: title,
-    description: description
+    title,
+    description,
   })
-    .then(result => {
-       console.log(result);
+    .then((result) => {
+      console.log(result);
       console.log('Created task');
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
     });
 };
 
 exports.getHomePage = (req, res, next) => {
   res.render('admin/home-page', {
-    path:'/admin/home-page',
+    path: '/admin/home-page',
   });
 };
 
-exports.getToday = (req, res, next) =>{
-  res.render('admin/today', {
-    path:'/admin/today',
-  });
-}
-
+exports.getToday = (req, res, next) => {
+  Task.findAll()
+    .then((task) => {
+      res.render('admin/today', {
+        tasks: task,
+        path: '/admin/today',
+      });
+    })
+    .catch((err) => {
+      consol.log(err);
+    });
+};
 
 
 // exports.getEditProduct = (req, res, next) => {
