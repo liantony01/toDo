@@ -30,10 +30,10 @@ exports.getHomePage = (req, res, next) => {
 };
 
 exports.getToday = (req, res, next) => {
-  Task.findAll()
+  Task.findAll() //  Mysql condition to find all data in the database  
     .then((task) => {
       res.render('admin/today', {
-        tasks: task,
+        tasks: task, // make reference to use in today.ejs template 
         path: '/admin/today',
       });
     })
