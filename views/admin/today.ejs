@@ -3,52 +3,30 @@
 <!-- Custom styles for this template -->
 
 <link href="/css/today.css" rel="stylesheet" type="text/css">
-<!-- -->
+<!-- eturns the number of elements in that array , in that case if tasks is > 0 return the value in the array -->
+<% if (tasks.length > 0) { %>
+<!-- create a for cycle of task  -->   
+    <% for (let task of tasks) { %>
+        <div class="card">
 
-<div class="row d-flex justify-content-center container">
-    <div class="col-md-8">
-        <div class="card-hover-shadow-2x mb-3 card">
-            <div class="card-header-tab card-header">
-                <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i class="fa fa-tasks"></i>&nbsp;Task Lists</div>
-            </div>
-            <div class="scroll-area-sm">
-                <perfect-scrollbar class="ps-show-limits">
-                    <div style="position: static;" class="ps ps--active-y">
-                        
-                        <div class="ps-content">
-                        
-                            <ul class=" list-group list-group-flush">
-                            <!-- if sentence that establishes that if it is higher than 0 it will be fulfilled in the template  -->
-                            <% if (tasks.length > 0) { %>  
-                                <li class="list-group-item">
-                                
-                                    <% for (let task of tasks) { %>
-                                    <div class="todo-indicator bg-warning"></div>
-                                    <div class="widget-content p-0">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left mr-2">
-                                                <div class="custom-checkbox custom-control"> <input class="custom-control-input" id="exampleCustomCheckbox12" type="checkbox"><label class="custom-control-label" for="exampleCustomCheckbox12">&nbsp;</label> </div>
-                                            </div>
-                                            <div class="widget-content-left">
-                                                <div class="widget-heading"><%= task.title %> 
-                                                </div>
-                                                <div class="widget-subheading"><i>test</i></div>
-                                            </div>
-                                            <div class="widget-content-right"> <button class="border-0 btn-transition btn btn-outline-success"> <i class="fa fa-check"></i></button> <button class="border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
-                                        </div>
-                                    </div>
-                                    <% } %>
-                                </li>
-                                <% } else { %>
-                                <% } %>
-                            </ul>
-                        </div>
-                    </div>
-                </perfect-scrollbar>
-            </div>
-            <div class="d-block text-right card-footer"><button class="mr-2 btn btn-link btn-sm">Cancel</button><button class="btn btn-primary">Add Task</button></div>
+        <div class="card-header">
+            Task created <%= task.createdAt %>  <!-- card title (date) -->
         </div>
-    </div>
-</div>                            
+        <div class="card-body">
+            <h5 class="card-title"><%= task.title %></h5> <!-- task title -->
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> <!-- detail task  -->
+            <a href="#" class="btn btn-light"> <svg class="bi bi-check" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+             <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3.5-3.5a.5.5 0 11.708-.708L6.5 10.293l6.646-6.647a.5.5 0 01.708 0z" clip-rule="evenodd"/>
+             </svg> 
+            </a>  <!-- btn line  -->
+            <a href="#" class="btn btn-light"> <svg class="bi bi-chevron-right" width="32" height="32" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6.646 3.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L12.293 10 6.646 4.354a.5.5 0 010-.708z" clip-rule="evenodd"/></svg> </a> 
+            
+            
+        </div>
+        </div>
+    <% } %>
+<% } else { %>
+
+<% } %>
 
 <%- include('../includes/footer.ejs') %>
