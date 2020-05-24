@@ -15,7 +15,7 @@ router.get('/new-task', adminController.getAddTask);
 
 router.post('/create-task', adminController.postAddTask);
 
-
+router.post('/delete-task', adminController.postDeleteTask);
 // router.post('/add-product', adminController.postAddTask); // Post new task in data base
 
 
