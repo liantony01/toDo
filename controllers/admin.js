@@ -3,7 +3,7 @@ const Task = require('../models/task');
 exports.getAddTask = (req, res, next) => {
   res.render('admin/create-task', {
     path: '/admin/create-task',
-    editing: false
+    editing: false,
   });
 };
 
@@ -11,30 +11,36 @@ exports.postAddTask = (req, res, next) => {
   const title = req.body.title;
   const description = req.body.description;
   Task.create({
-    title: title,
-    description: description
+    title,
+    description,
   })
-    .then(result => {
-       console.log(result);
+    .then((result) => {
+      console.log(result);
       console.log('Created task');
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
     });
 };
 
 exports.getHomePage = (req, res, next) => {
   res.render('admin/home-page', {
-    path:'/admin/home-page',
+    path: '/admin/home-page',
   });
 };
 
-exports.getToday = (req, res, next) =>{
-  res.render('admin/today', {
-    path:'/admin/today',
-  });
-}
-
+exports.getToday = (req, res, next) => {
+  Task.findAll() //  Mysql condition to find all data in the database
+    .then((task) => {
+      res.render('admin/today', {
+        tasks: task, // make reference to use in today.ejs template
+        path: '/admin/today',
+      });
+    })
+    .catch((err) => {
+      consol.log(err);
+    });
+};
 
 
 // exports.getEditProduct = (req, res, next) => {
@@ -73,9 +79,16 @@ exports.getToday = (req, res, next) =>{
 //   res.redirect('/admin/products');
 // };
 
-
-// exports.postDeleteProduct = (req, res, next) => {
-//   const prodId = req.body.productId;
-//   Product.deleteById(prodId);
-//   res.redirect('/admin/products');
-// };
+//  logic to delete task
+exports.postDeleteTask = (req, res, next) => {
+  const tkId = req.body.taskId
+  Task.findByPk(tkId)
+    .then(task => {
+      return task.destroy();
+    })
+    .then(result => {
+      console.log('DESTROYED PRODUCT');
+      res.redirect('/admin/today');
+    })
+    .catch(err => console.log(err));
+};
